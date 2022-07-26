@@ -21,6 +21,13 @@ module.exports = {
       'Secondary': 'rgb(188, 141, 66)',
       'offwhite':'#f5f5f5',
       'textColor':'#404e5a',
+      'purple-400':'#AB47BC',
+      'purple-500':'#9C27B0',
+      'purple-600':'#8E24AA',
+      'purple-700':'#7B1FA2',
+      'purple-800':'#6A1B9A',
+     
+
     },
   },
   plugins: [],

@@ -22,6 +22,7 @@ function MainRoutes() {
           <Route path="About" element={<About />} />
         </Route>
         <Route path="Setting" element={<SettingScreen />} />
+        <Route element={<Navigate replace to="/ManageDeos" />} />
       </Route>
     </Routes>
   );
