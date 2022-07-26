@@ -1,4 +1,3 @@
-import React from "react";
 import TableScrollArea from "../Compnent/Table";
 import data from "../../TemData/Tabledata";
 function DatasetsScreen() {

@@ -9,15 +9,109 @@ import {
   ChartPie,
   Users,
   Database,
-  User,
   UserCircle,
 } from "tabler-icons-react";
-import { Text } from "@mantine/core";
 //import { MantineLogo } from '../../shared/MantineLogo';
 import LogoImage from "./logo_image";
-import TableScrollArea from "./Table";
-import data from "../../TemData/Tabledata";
 
+const data1 = [
+  {
+    link: "/Datasets",
+    label: "Datasets",
+    active_label: "Datasets",
+    icon: Database,
+  },
+  {
+    link: "/ManageDeos",
+    label: "Manage DEOs",
+    active_label: "ManageDeos",
+    icon: Users,
+  },
+  {
+    link: "/Reports",
+    label: "Reports",
+    active_label: "Reports/Home",
+    icon: ChartPie,
+  },
+  {
+    link: "/Setting",
+    label: "Other Settings",
+    active_label: "Setting",
+    icon: Settings,
+  },
+];
+
+export function NavbarSimple() {
+  let PathLocation = window.location.pathname;
+  PathLocation = PathLocation.slice(1);
+  const { classes, cx } = useStyles();
+  const [active, setActive] = useState(PathLocation);
+  const theme = useMantineTheme();
+  const links = data1.map((item) => (
+    <Link
+      className={cx(classes.link, {
+        [classes.linkActive]: item.active_label === active,
+      })}
+      to={item.link}
+      key={item.label}
+      onClick={(event) => {
+        event.stopPropagation();
+        setActive(item.active_label);
+      }}
+    >
+      <item.icon className={classes.linkIcon} />
+      <span>{item.label}</span>
+    </Link>
+  ));
+
+  return (
+    <Navbar
+      height={700}
+      width={{ sm: 300 }}
+      p="md"
+      sx={{ backgroundColor: theme.colors.lightDark }}
+    >
+      <Navbar.Section grow>
+        <Group className={classes.header} position="apart">
+          <LogoImage />
+          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>
+            OPs v1.0
+          </Code>
+        </Group>
+        {links}
+      </Navbar.Section>
+      <div className="text-sm text-offwhite">
+        You are loggedin as a <span className="text-Secondary">DEV</span>
+      </div>
+      <Navbar.Section className={classes.footer}>
+        <Group position="center">
+          <a
+            href="https://bobbyhadz.com/blog/react-type-jsx-element-not-assignable-type-functioncomponent"
+            className={classes.link}
+            // onClick={(event) => event.preventDefault()}
+          >
+            <SwitchHorizontal className={classes.linkIcon} />
+          </a>
+          <a
+            href="#"
+            className={classes.link}
+            onClick={(event) => event.preventDefault()}
+          >
+            <UserCircle className={classes.linkIcon} />
+          </a>
+
+          <a
+            href="#"
+            className={classes.link}
+            onClick={(event) => event.preventDefault()}
+          >
+            <Logout className={classes.linkIcon} />
+          </a>
+        </Group>
+      </Navbar.Section>
+    </Navbar>
+  );
+}
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -104,78 +198,3 @@ const useStyles = createStyles((theme, _params, getRef) => {
     },
   };
 });
-
-const data1 = [
-  { link: "/Datasets", label: "Datasets", icon: Database },
-  { link: "/ManageDeos", label: "Manage DEOs", icon: Users },
-  { link: "/Reports", label: "Reports", icon: ChartPie },
-  { link: "/Setting", label: "Other Settings", icon: Settings },
-];
-
-export function NavbarSimple() {
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Billing");
-  const theme = useMantineTheme();
-  const links = data1.map((item) => (
-    <Link
-      className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
-      })}
-      to={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.stopPropagation();
-        setActive(item.label);
-      }}
-    >
-      <item.icon className={classes.linkIcon} />
-      <span>{item.label}</span>
-    </Link>
-  ));
-
-  return (
-    <Navbar
-      height={700}
-      width={{ sm: 300 }}
-      p="md"
-      sx={{ backgroundColor: theme.colors.lightDark }}
-    >
-      <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <LogoImage />
-          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>OPs v1.0</Code>
-        </Group>
-        {links}
-      </Navbar.Section>
-      <div className="text-sm text-offwhite">
-        You are loggedin as a <span className="text-Secondary">DEV</span>
-      </div>
-      <Navbar.Section className={classes.footer}>
-        <Group position="center">
-          <a
-            href="https://bobbyhadz.com/blog/react-type-jsx-element-not-assignable-type-functioncomponent"
-            className={classes.link}
-            // onClick={(event) => event.preventDefault()}
-          >
-            <SwitchHorizontal className={classes.linkIcon} />
-          </a>
-          <a
-            href="#"
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
-          >
-            <UserCircle className={classes.linkIcon} />
-          </a>
-
-          <a
-            href="#"
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
-          >
-            <Logout className={classes.linkIcon} />
-          </a>
-        </Group>
-      </Navbar.Section>
-    </Navbar>
-  );
-}

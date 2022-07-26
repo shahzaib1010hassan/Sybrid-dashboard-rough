@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { createStyles, Table, ScrollArea, Card } from "@mantine/core";
-import { Group } from "@mantine/core";
+import { useState } from "react";
+import { createStyles, Table, ScrollArea } from "@mantine/core";
 const useStyles = createStyles((theme) => ({
   header: {
     position: "sticky",
