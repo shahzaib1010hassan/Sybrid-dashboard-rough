@@ -16,27 +16,27 @@ import LogoImage from "./logo_image";
 
 const data1 = [
   {
-    link: "/Datasets",
+    link: "datasets",
     label: "Datasets",
-    active_label: "Datasets",
+    active_label: "dashboard/datasets",
     icon: Database,
   },
   {
-    link: "/ManageDeos",
+    link: "manageDeos",
     label: "Manage DEOs",
-    active_label: "ManageDeos",
+    active_label: "dashboard/manageDeos",
     icon: Users,
   },
   {
-    link: "/Reports",
+    link: "reports",
     label: "Reports",
-    active_label: "Reports/Home",
+    active_label: "dashboard/reports/home",
     icon: ChartPie,
   },
   {
-    link: "/Setting",
+    link: "setting",
     label: "Other Settings",
-    active_label: "Setting",
+    active_label: "dashboard/setting",
     icon: Settings,
   },
 ];
@@ -74,9 +74,7 @@ export function NavbarSimple() {
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <LogoImage />
-          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>
-            OPs v1.0
-          </Code>
+          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>OPs v1.0</Code>
         </Group>
         {links}
       </Navbar.Section>

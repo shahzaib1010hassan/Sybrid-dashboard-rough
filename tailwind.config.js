@@ -18,7 +18,7 @@ module.exports = {
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
       'Primary': 'rgb(0, 121, 56)',
-      'Secondary': 'rgb(188, 141, 66)',
+      'Secondary': '#BC8D42',
       'offwhite':'#f5f5f5',
       'textColor':'#404e5a',
       'purple-400':'#AB47BC',
@@ -26,7 +26,28 @@ module.exports = {
       'purple-600':'#8E24AA',
       'purple-700':'#7B1FA2',
       'purple-800':'#6A1B9A',
-     
+      'blue-500':'rgb(59 130 246)',
+      'gray':{50:
+        '#f9fafb',
+        100:
+        '#f3f4f6',
+        200:
+        '#e5e7eb',
+        300:
+        '#d1d5db',
+        400:
+        '#9ca3af',
+        500
+        :'#6b7280',
+        600:
+        '#4b5563',
+        700:
+        '#374151',
+        800:
+        '#1f2937',
+        900:
+        '#111827'}
+
 
     },
   },
