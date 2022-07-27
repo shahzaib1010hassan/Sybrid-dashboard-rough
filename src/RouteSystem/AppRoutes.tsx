@@ -12,7 +12,8 @@ import ReportScreen from "../Pages/Screen/ReportScreen";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<AuthenticationImage />}></Route>
+      <Route path="/" element={<Navigate replace to="login" />}></Route>
+      <Route path="/login" element={<AuthenticationImage />}></Route>
       <Route
         path="/dashboard"
         element={

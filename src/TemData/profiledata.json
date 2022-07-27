@@ -1,0 +1,32 @@
+[
+    {
+        "usr_id": "1",
+        "usr_fname": "Shahzaib Hassan",
+        "usr_email": "hassanshahzaib81@gmail.com",
+        "usr_mobile": "Shahzaib10"
+    },
+    {
+        "usr_id": "2",
+        "usr_fname": "Hammad Khan",
+        "usr_email": "hammadkhan@gmail.com",
+        "usr_mobile": "Hammad10"
+    },
+    {
+        "usr_id": "3",
+        "usr_fname": "Usman Siyal",
+        "usr_email": "usmansiyal@gmail.com",
+        "usr_mobile": "Usman10"
+    },
+    {
+        "usr_id": "4",
+        "usr_fname": "Musab Khan",
+        "usr_email": "musabkhan@gmail.com",
+        "usr_mobile": "Musab10"
+    },
+    {
+        "usr_id": "5",
+        "usr_fname": "Usama Zahid",
+        "usr_email": "usamazahid@gmail.com",
+        "usr_mobile": "Usama10"
+    }
+]

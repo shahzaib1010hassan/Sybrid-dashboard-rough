@@ -13,7 +13,7 @@ import {
 } from "tabler-icons-react";
 //import { MantineLogo } from '../../shared/MantineLogo';
 import LogoImage from "./logo_image";
-
+import { useAuth } from "../ContextApi/authContext";
 const data1 = [
   {
     link: "datasets",
@@ -47,6 +47,7 @@ export function NavbarSimple() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState(PathLocation);
   const theme = useMantineTheme();
+  const { logout } = useAuth();
   const links = data1.map((item) => (
     <Link
       className={cx(classes.link, {
@@ -98,13 +99,9 @@ export function NavbarSimple() {
             <UserCircle className={classes.linkIcon} />
           </a>
 
-          <a
-            href="#"
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
-          >
+          <span className={classes.link} onClick={logout}>
             <Logout className={classes.linkIcon} />
-          </a>
+          </span>
         </Group>
       </Navbar.Section>
     </Navbar>

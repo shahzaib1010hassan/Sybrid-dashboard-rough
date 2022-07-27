@@ -1,64 +1,24 @@
-import {
-  Paper,
-  createStyles,
-  TextInput,
-  PasswordInput,
-  Checkbox,
-  Button,
-  Title,
-  Text,
-  Anchor,
-  ThemeIcon,
-} from "@mantine/core";import { useMantineTheme } from "@mantine/core";
+import { Paper, createStyles, Checkbox, Title, Text } from "@mantine/core";
+import { useMantineTheme } from "@mantine/core";
 import { Link } from "react-router-dom";
 import LogoImage from "../../Compnent/logo_image";
+
+import { useState } from "react";
+import { useAuth } from "../../ContextApi/authContext";
 const { innerWidth: width, innerHeight: height } = window;
-const useStyles = createStyles((theme) => ({
-  password: {},
-  wrapper: {
-    minHeight: height,
-    backgroundSize: "cover",
-    backgroundImage:
-      "url(https://wallpaperaccess.com/full/137495.jpg)",
-  },
 
-  form: {
-    borderRight: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[3]
-    }`,
-    minHeight: height,
-    maxWidth: 450,
-    paddingTop: 80,
-
-    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-      maxWidth: "100%",
-    },
-  },
-
-  title: {
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-  },
-
-  logo: {
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    width: 120,
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-}));
-
-const checkAuth = () => {};
-
-export default function AuthenticationImage() {
+export default function AuthenticationImage(props: any) {
+  const [getEmail, setEmail] = useState("");
+  const [getPassword, setPassword] = useState("");
+  const { login } = useAuth();
   const { classes } = useStyles();
   const theme = useMantineTheme();
+
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={30}>
         <div className="grid place-items-center">
-          <LogoImage/>
+          <LogoImage />
         </div>
         <Title
           order={2}
@@ -88,6 +48,8 @@ export default function AuthenticationImage() {
             id="input-group-1"
             className="bg-gray-50 border-none outline-0 border-gray-300 text-gray-900 text-sm rounded-md focus:border-0.5 focus:border-inherit focus:ring-blue-500 focus:border-Secondary block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-md"
             placeholder="hello@gmail.com"
+            onChange={(event) => setEmail(event.target.value)}
+            value={getEmail}
           />
         </div>
 
@@ -113,45 +75,88 @@ export default function AuthenticationImage() {
             id="input-group-1"
             className="bg-gray-50 border border-hidden outline-0 border-gray-300 shadow-md text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Password"
+            value={getPassword}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
 
-        <Checkbox label="Keep me logged in" mt="xl" size="sm" radius={6}  color="teal" />
-        <Link to="dashboard">
-          <a
-            href="#_"
-            className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-Secondary rounded-md shadow-lg group mt-12 w-48 mb-6"
+        <Checkbox
+          label="Keep me logged in"
+          mt="xl"
+          size="sm"
+          radius={6}
+          color="teal"
+        />
+
+        <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-Secondary rounded-md shadow-lg group mt-12 w-48 mb-6">
+          <span
+            onClick={() => login(getEmail, getPassword)}
+            className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-Secondary group-hover:translate-x-0 ease"
           >
-            <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-Secondary group-hover:translate-x-0 ease">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </span>
-            <span className="absolute flex items-center justify-center w-full h-full text-Secondary transition-all duration-300 transform group-hover:translate-x-full ease">
-              Login
-            </span>
-            <span className="relative invisible">Login</span>
-          </a>
-        </Link>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              ></path>
+            </svg>
+          </span>
+          <span className="absolute flex items-center justify-center w-full h-full text-Secondary transition-all duration-300 transform group-hover:translate-x-full ease">
+            Login
+          </span>
+          <span className="relative invisible">Login</span>
+        </div>
 
         <Text align="center" mt="md">
-          Don&apos;t have an account? 
+          Don&apos;t have an account?
           <Link to="#">
-            <span className="text-Secondary font-bold hover:underline hover:underline-offset-1">Register</span>
+            <span className="text-Secondary font-bold hover:underline hover:underline-offset-1">
+              Register
+            </span>
           </Link>
         </Text>
       </Paper>
     </div>
   );
 }
+const useStyles = createStyles((theme) => ({
+  password: {},
+  wrapper: {
+    minHeight: height,
+    backgroundSize: "cover",
+    backgroundImage: "url(https://wallpaperaccess.com/full/137495.jpg)",
+  },
+
+  form: {
+    borderRight: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[3]
+    }`,
+    minHeight: height,
+    maxWidth: 450,
+    paddingTop: 80,
+
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      maxWidth: "100%",
+    },
+  },
+
+  title: {
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  },
+
+  logo: {
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    width: 120,
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+}));
