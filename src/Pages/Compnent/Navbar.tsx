@@ -14,6 +14,7 @@ import {
 //import { MantineLogo } from '../../shared/MantineLogo';
 import LogoImage from "./logo_image";
 import { useAuth } from "../ContextApi/authContext";
+import { useEffect } from "react";
 const data1 = [
   {
     link: "datasets",
@@ -41,72 +42,6 @@ const data1 = [
   },
 ];
 
-export function NavbarSimple() {
-  let PathLocation = window.location.pathname;
-  PathLocation = PathLocation.slice(1);
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState(PathLocation);
-  const theme = useMantineTheme();
-  const { logout } = useAuth();
-  const links = data1.map((item) => (
-    <Link
-      className={cx(classes.link, {
-        [classes.linkActive]: item.active_label === active,
-      })}
-      to={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.stopPropagation();
-        setActive(item.active_label);
-      }}
-    >
-      <item.icon className={classes.linkIcon} />
-      <span>{item.label}</span>
-    </Link>
-  ));
-
-  return (
-    <Navbar
-      height={700}
-      width={{ sm: 300 }}
-      p="md"
-      sx={{ backgroundColor: theme.colors.lightDark }}
-    >
-      <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <LogoImage />
-          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>OPs v1.0</Code>
-        </Group>
-        {links}
-      </Navbar.Section>
-      <div className="text-sm text-offwhite">
-        You are loggedin as a <span className="text-Secondary">DEV</span>
-      </div>
-      <Navbar.Section className={classes.footer}>
-        <Group position="center">
-          <a
-            href="https://bobbyhadz.com/blog/react-type-jsx-element-not-assignable-type-functioncomponent"
-            className={classes.link}
-            // onClick={(event) => event.preventDefault()}
-          >
-            <SwitchHorizontal className={classes.linkIcon} />
-          </a>
-          <a
-            href="#"
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
-          >
-            <UserCircle className={classes.linkIcon} />
-          </a>
-
-          <span className={classes.link} onClick={logout}>
-            <Logout className={classes.linkIcon} />
-          </span>
-        </Group>
-      </Navbar.Section>
-    </Navbar>
-  );
-}
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -193,3 +128,85 @@ const useStyles = createStyles((theme, _params, getRef) => {
     },
   };
 });
+
+export function NavbarSimple() {
+  const PathLocation = window.location.pathname.slice(1);
+  localStorage.setItem("Url", PathLocation);
+  console.log(PathLocation);
+  const { classes, cx } = useStyles();
+  const [active, setActive] = useState("");
+
+  useEffect(() => {
+    setActive(PathLocation);
+  }, []);
+
+  const theme = useMantineTheme();
+  const { logout } = useAuth();
+  const links = data1.map((item) => (
+    <Link
+      className={cx(classes.link, {
+        [classes.linkActive]: item.active_label == PathLocation,
+      })}
+      to={item.link}
+      key={item.label}
+      onClick={(event) => {
+        {
+          console.log(
+            "Active",
+            item.active_label,
+            "Active label",
+            PathLocation,
+            PathLocation == active
+          );
+        }
+        event.stopPropagation();
+        setActive(item.active_label);
+      }}
+    >
+      <item.icon className={classes.linkIcon} />
+      <span>{item.label}</span>
+    </Link>
+  ));
+
+  return (
+    <Navbar
+      height={700}
+      width={{ sm: 300 }}
+      p="md"
+      sx={{ backgroundColor: theme.colors.lightDark }}
+    >
+      <Navbar.Section grow>
+        <Group className={classes.header} position="apart">
+          <LogoImage />
+          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>OPs v1.0</Code>
+        </Group>
+        {links}
+      </Navbar.Section>
+      <div className="text-sm text-offwhite">
+        You are loggedin as a <span className="text-Secondary">DEV</span>
+      </div>
+      <Navbar.Section className={classes.footer}>
+        <Group position="center">
+          <a
+            href="https://bobbyhadz.com/blog/react-type-jsx-element-not-assignable-type-functioncomponent"
+            className={classes.link}
+            // onClick={(event) => event.preventDefault()}
+          >
+            <SwitchHorizontal className={classes.linkIcon} />
+          </a>
+          <a
+            href="#"
+            className={classes.link}
+            onClick={(event) => event.preventDefault()}
+          >
+            <UserCircle className={classes.linkIcon} />
+          </a>
+
+          <span className={classes.link} onClick={logout}>
+            <Logout className={classes.linkIcon} />
+          </span>
+        </Group>
+      </Navbar.Section>
+    </Navbar>
+  );
+}

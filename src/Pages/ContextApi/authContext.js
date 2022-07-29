@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import profiledata from "../../TemData/profiledata.json";
 
 import { useNavigate } from "react-router-dom";
@@ -11,24 +11,44 @@ const AuthProvider = ({ children }) => {
     name: "",
     email: "",
   });
+  const [AuthUser, setAuthUser] = useState(false);
 
   const login = (email, password) => {
     profiledata.map((user) => {
       if (user.usr_email == email && user.usr_mobile == password) {
         setUser({
-          name: "shahzaib",
-          email: "hassanshahzaib81@gmail.com",
+          name: user.usr_fname,
+          email: user.usr_email,
         });
-        navigate("dashboard");
+        setAuthUser(true);
+
+        localStorage.setItem(
+          "accesstoken",
+          "643024e8-a7fb-4f5b-b429-c00d0399ee15"
+        );
+
+        navigate(localStorage.getItem("Url"));
       }
     });
   };
 
+  const loginByAcessToken = () => {
+    setAuthUser(true);
+  };
+
   const logout = () => {
+    //Clearing Content API User Details
+    localStorage.clear();
+    setAuthUser(false);
+    user.setname("");
+    user.setemail("");
+    //Removing Access Token
+
+    //Navigate to Login Page
     navigate("login");
   };
 
-  const value = { user, login, logout };
+  const value = { user, setUser, AuthUser, loginByAcessToken, login, logout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

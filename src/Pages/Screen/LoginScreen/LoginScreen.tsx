@@ -5,6 +5,7 @@ import LogoImage from "../../Compnent/logo_image";
 
 import { useState } from "react";
 import { useAuth } from "../../ContextApi/authContext";
+import { useEffect } from "react";
 const { innerWidth: width, innerHeight: height } = window;
 
 export default function AuthenticationImage(props: any) {
