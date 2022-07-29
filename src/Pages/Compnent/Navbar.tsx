@@ -132,7 +132,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 export function NavbarSimple() {
   const PathLocation = window.location.pathname.slice(1);
   localStorage.setItem("Url", PathLocation);
-  console.log(PathLocation);
+  console.log("I am in NavbAR", PathLocation);
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("");
 

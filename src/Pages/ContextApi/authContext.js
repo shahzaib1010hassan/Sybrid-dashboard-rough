@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
   const [AuthUser, setAuthUser] = useState(false);
 
   const login = (email, password) => {
+    console.log("I am in authContext in login ");
     profiledata.map((user) => {
       if (user.usr_email == email && user.usr_mobile == password) {
         setUser({
@@ -27,25 +28,28 @@ const AuthProvider = ({ children }) => {
           "643024e8-a7fb-4f5b-b429-c00d0399ee15"
         );
 
-        navigate(localStorage.getItem("Url"));
+        navigate("/dashboard");
       }
     });
   };
 
   const loginByAcessToken = () => {
     setAuthUser(true);
+   
   };
 
   const logout = () => {
     //Clearing Content API User Details
-    localStorage.clear();
+
     setAuthUser(false);
-    user.setname("");
-    user.setemail("");
+    setUser({
+      name: "",
+      email: "",
+    });
     //Removing Access Token
 
     //Navigate to Login Page
-    navigate("login");
+    navigate("/login");
   };
 
   const value = { user, setUser, AuthUser, loginByAcessToken, login, logout };
