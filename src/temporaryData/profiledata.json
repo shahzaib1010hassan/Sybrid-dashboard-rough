@@ -1,0 +1,67 @@
+[
+    {
+        "access_token": "643024e8-a7fb-4f5b-b429-c00d0399ee15",
+        "userDetails": {
+            "usr_id": "1",
+            "usr_fname": "Shahzaib Hassan",
+            "usr_email": "hassanshahzaib81@gmail.com",
+            "usr_password": "Shahzaib10",
+            "usr_phonenumber": "+92 336 6651625",
+            "usr_profession": "Front-end Developer",
+            "usr_description": "Mr. Shahzaib Hassan is working as Front-end Developer in Sybrid Private Limited.",
+            "usr_profileImage": "https://media.istockphoto.com/photos/good-looking-male-business-professional-in-studio-picture-id1201437847?k=20&m=1201437847&s=170667a&w=0&h=4Vll76nlbMjlkPMiyY2JPXSovst1gevW1NkrA3ZMkSU="
+        }
+    },
+    {
+        "access_token": "299182b8-5834-4d58-ab2e-66ebdf560745",
+        "userDetails": {
+            "usr_id": "2",
+            "usr_fname": "Hammad Khan",
+            "usr_email": "hammadkhan@gmail.com",
+            "usr_password": "Hammad10",
+            "usr_phonenumber": "+92 336 6651625",
+            "usr_profession": "Front-end Developer",
+            "usr_description": "Mr. Hammad is working as Front-end Developer in Sybrid Private Limited.",
+            "usr_profileImage": "https://media.istockphoto.com/photos/good-looking-male-business-professional-in-studio-picture-id1201437847?k=20&m=1201437847&s=170667a&w=0&h=4Vll76nlbMjlkPMiyY2JPXSovst1gevW1NkrA3ZMkSU="
+        }
+    },
+    {
+        "access_token": "77340b6b-0818-4c3f-a993-2ae90ecc24ec",
+        "userDetails": {
+            "usr_id": "3",
+            "usr_fname": "Usman Siyal",
+            "usr_email": "usmansiyal@gmail.com",
+            "usr_password": "Usman10",
+            "usr_phonenumber": "+92 336 6651625",
+            "usr_profession": "Front-end Developer",
+            "usr_description": "Mr. Usman Siyal is working as Front-end Developer in Sybrid Private Limited.",
+            "usr_profileImage": "https://media.istockphoto.com/photos/good-looking-male-business-professional-in-studio-picture-id1201437847?k=20&m=1201437847&s=170667a&w=0&h=4Vll76nlbMjlkPMiyY2JPXSovst1gevW1NkrA3ZMkSU="
+        }
+    },
+    {
+        "access_token": "a8a2d7b3-d387-4c5a-804b-e1fcb09d678d",
+        "userDetails": {
+            "usr_id": "4",
+            "usr_fname": "Musab Khan",
+            "usr_email": "musabkhan@gmail.com",
+            "usr_password": "Musab10",
+            "usr_phonenumber": "+92 336 6651625",
+            "usr_profession": "Front-end Developer",
+            "usr_description": "Mr. Musab Khan is working as Front-end Developer in Sybrid Private Limited.",
+            "usr_profileImage": "https://media.istockphoto.com/photos/good-looking-male-business-professional-in-studio-picture-id1201437847?k=20&m=1201437847&s=170667a&w=0&h=4Vll76nlbMjlkPMiyY2JPXSovst1gevW1NkrA3ZMkSU="
+        }
+    },
+    {
+        "access_token": "e5b0cfbc-28eb-4b23-a9a1-f0b5c9581903",
+        "userDetails": {
+            "usr_id": "5",
+            "usr_fname": "Usama Zahid",
+            "usr_email": "usamazahid@gmail.com",
+            "usr_password": "Usama10",
+            "usr_phonenumber": "+92 336 6651625",
+            "usr_profession": "Front-end Developer",
+            "usr_description": "Mr. Usama Zahid is working as Front-end Developer in Sybrid Private Limited.",
+            "usr_profileImage": "https://media.istockphoto.com/photos/good-looking-male-business-professional-in-studio-picture-id1201437847?k=20&m=1201437847&s=170667a&w=0&h=4Vll76nlbMjlkPMiyY2JPXSovst1gevW1NkrA3ZMkSU="
+        }
+    }
+]

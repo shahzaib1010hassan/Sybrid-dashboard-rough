@@ -1,10 +1,10 @@
 import { Paper, createStyles, Checkbox, Title, Text } from "@mantine/core";
 import { useMantineTheme } from "@mantine/core";
 import { Link } from "react-router-dom";
-import LogoImage from "../../Compnent/logo_image";
+import LogoImage from "../../../component/logo_image";
 
 import { useState } from "react";
-import { useAuth } from "../../ContextApi/authContext";
+import { useAuth } from "../../../context/authContext";
 import { useEffect } from "react";
 const { innerWidth: width, innerHeight: height } = window;
 
@@ -14,7 +14,7 @@ export default function AuthenticationImage(props: any) {
   const { login } = useAuth();
   const { classes } = useStyles();
   const theme = useMantineTheme();
-
+  console.log("I am in Login Screen fix Point 1");
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={30}>
@@ -62,11 +62,11 @@ export default function AuthenticationImage(props: any) {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
               />
             </svg>
@@ -91,7 +91,9 @@ export default function AuthenticationImage(props: any) {
 
         <div className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-Secondary rounded-md shadow-lg group mt-12 w-48 mb-6">
           <span
-            onClick={() => login(getEmail, getPassword)}
+            onClick={() => {
+              login(getEmail, getPassword);
+            }}
             className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-Secondary group-hover:translate-x-0 ease"
           >
             <svg
@@ -103,8 +105,8 @@ export default function AuthenticationImage(props: any) {
             >
               <path
                 stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M14 5l7 7m0 0l-7 7m7-7H3"
               ></path>
             </svg>

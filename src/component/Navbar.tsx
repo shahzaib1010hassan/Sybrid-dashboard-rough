@@ -13,7 +13,7 @@ import {
 } from "tabler-icons-react";
 //import { MantineLogo } from '../../shared/MantineLogo';
 import LogoImage from "./logo_image";
-import { useAuth } from "../ContextApi/authContext";
+import { useAuth } from "../context/authContext";
 import { useEffect } from "react";
 const data1 = [
   {
@@ -72,6 +72,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
     link: {
       ...theme.fn.focusStyles(),
       display: "flex",
+      marginTop: "2px",
+      marginBottom: "2px",
       alignItems: "center",
       textDecoration: "none",
       fontSize: theme.fontSizes.sm,
@@ -81,6 +83,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
           : theme.colors.lightWhiteTextColor,
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
       borderRadius: theme.radius.sm,
+
       fontWeight: 500,
 
       "&:hover": {
@@ -89,6 +92,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
             ? theme.colors.dark[6]
             : theme.colors.gray[0],
         color: theme.colorScheme === "dark" ? theme.white : theme.black,
+        borderLeftWidth: "3px",
+        borderLeftColor: theme.colors.secondaryColor,
 
         [`& .${icon}`]: {
           color:
@@ -112,17 +117,15 @@ const useStyles = createStyles((theme, _params, getRef) => {
       "&, &:hover": {
         backgroundColor:
           theme.colorScheme === "dark"
-            ? theme.fn.rgba(theme.colors[theme.primaryColor][8], 0.25)
-            : theme.colors[theme.primaryColor][0],
-        color:
-          theme.colorScheme === "dark"
-            ? theme.white
-            : theme.colors[theme.primaryColor][7],
+            ? theme.colors.dark[6]
+            : theme.colors.gray[0],
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
+
         [`& .${icon}`]: {
           color:
-            theme.colors[theme.primaryColor][
-              theme.colorScheme === "dark" ? 5 : 7
-            ],
+            theme.colorScheme === "dark"
+              ? theme.white
+              : theme.colors.secondaryColor,
         },
       },
     },
@@ -131,8 +134,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 export function NavbarSimple() {
   const PathLocation = window.location.pathname.slice(1);
+
   localStorage.setItem("Url", PathLocation);
-  console.log("I am in NavbAR", PathLocation);
+
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("");
 
@@ -150,15 +154,6 @@ export function NavbarSimple() {
       to={item.link}
       key={item.label}
       onClick={(event) => {
-        {
-          console.log(
-            "Active",
-            item.active_label,
-            "Active label",
-            PathLocation,
-            PathLocation == active
-          );
-        }
         event.stopPropagation();
         setActive(item.active_label);
       }}
@@ -167,10 +162,12 @@ export function NavbarSimple() {
       <span>{item.label}</span>
     </Link>
   ));
-
+  {
+    console.log(window.innerHeight);
+  }
   return (
     <Navbar
-      height={700}
+      height={window.innerHeight}
       width={{ sm: 300 }}
       p="md"
       sx={{ backgroundColor: theme.colors.lightDark }}
@@ -178,7 +175,7 @@ export function NavbarSimple() {
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <LogoImage />
-          <Code sx={{ fontWeight: 700, marginLeft: 14 }}>OPs v1.0</Code>
+          <Code sx={{ fontWeight: 700,color:'#BC8D42',fontSize:14 }}>OPs v1.0</Code>
         </Group>
         {links}
       </Navbar.Section>
@@ -188,19 +185,20 @@ export function NavbarSimple() {
       <Navbar.Section className={classes.footer}>
         <Group position="center">
           <a
-            href="https://bobbyhadz.com/blog/react-type-jsx-element-not-assignable-type-functioncomponent"
+            href="#"
             className={classes.link}
             // onClick={(event) => event.preventDefault()}
           >
             <SwitchHorizontal className={classes.linkIcon} />
           </a>
-          <a
-            href="#"
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
+          <Link
+            to="profile"
+            className={cx(classes.link, {
+              [classes.linkActive]: "dashboard/profile" === PathLocation,
+            })}
           >
             <UserCircle className={classes.linkIcon} />
-          </a>
+          </Link>
 
           <span className={classes.link} onClick={logout}>
             <Logout className={classes.linkIcon} />

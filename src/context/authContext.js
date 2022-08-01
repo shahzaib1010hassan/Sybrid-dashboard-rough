@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import profiledata from "../../TemData/profiledata.json";
+import profiledata from "../temporaryData/profiledata.json";
 
 import { useNavigate } from "react-router-dom";
 
@@ -14,19 +14,18 @@ const AuthProvider = ({ children }) => {
   const [AuthUser, setAuthUser] = useState(false);
 
   const login = (email, password) => {
-    console.log("I am in authContext in login ");
-    profiledata.map((user) => {
-      if (user.usr_email == email && user.usr_mobile == password) {
+    profiledata.map((user1) => {
+      if (
+        user1.userDetails.usr_email == email &&
+        user1.userDetails.usr_password == password
+      ) {
         setUser({
-          name: user.usr_fname,
-          email: user.usr_email,
+          name: user1.userDetails.usr_fname,
+          email: user1.userDetails.usr_email,
         });
         setAuthUser(true);
 
-        localStorage.setItem(
-          "accesstoken",
-          "643024e8-a7fb-4f5b-b429-c00d0399ee15"
-        );
+        localStorage.setItem("accesstoken", user1.access_token);
 
         navigate("/dashboard");
       }
@@ -34,20 +33,20 @@ const AuthProvider = ({ children }) => {
   };
 
   const loginByAcessToken = () => {
+    console.log("login by access token");
     setAuthUser(true);
-   
   };
 
   const logout = () => {
     //Clearing Content API User Details
-
+    console.log("I am in logout");
     setAuthUser(false);
     setUser({
       name: "",
       email: "",
     });
     //Removing Access Token
-
+    localStorage.removeItem("accesstoken");
     //Navigate to Login Page
     navigate("/login");
   };
