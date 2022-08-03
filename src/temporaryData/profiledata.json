@@ -4,6 +4,7 @@
         "userDetails": {
             "usr_id": "1",
             "usr_fname": "Shahzaib Hassan",
+            "usr_role": "developer",
             "usr_email": "hassanshahzaib81@gmail.com",
             "usr_password": "Shahzaib10",
             "usr_phonenumber": "+92 336 6651625",
@@ -17,6 +18,7 @@
         "userDetails": {
             "usr_id": "2",
             "usr_fname": "Hammad Khan",
+            "usr_role": "admin",
             "usr_email": "hammadkhan@gmail.com",
             "usr_password": "Hammad10",
             "usr_phonenumber": "+92 336 6651625",
@@ -30,6 +32,7 @@
         "userDetails": {
             "usr_id": "3",
             "usr_fname": "Usman Siyal",
+            "usr_role": "manager",
             "usr_email": "usmansiyal@gmail.com",
             "usr_password": "Usman10",
             "usr_phonenumber": "+92 336 6651625",
@@ -43,6 +46,7 @@
         "userDetails": {
             "usr_id": "4",
             "usr_fname": "Musab Khan",
+            "usr_role": "admin",
             "usr_email": "musabkhan@gmail.com",
             "usr_password": "Musab10",
             "usr_phonenumber": "+92 336 6651625",
@@ -56,6 +60,7 @@
         "userDetails": {
             "usr_id": "5",
             "usr_fname": "Usama Zahid",
+            "usr_role": "accountant",
             "usr_email": "usamazahid@gmail.com",
             "usr_password": "Usama10",
             "usr_phonenumber": "+92 336 6651625",

@@ -1,20 +1,25 @@
 import { Paper, createStyles, Checkbox, Title, Text } from "@mantine/core";
-import { useMantineTheme } from "@mantine/core";
 import { Link } from "react-router-dom";
 import LogoImage from "../../../component/logo_image";
 
 import { useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
+import profiledata from "../../../temporaryData/profiledata.json";
+
 const { innerWidth: width, innerHeight: height } = window;
 
 export default function AuthenticationImage(props: any) {
+  const { loginByAcessToken, user, setUser, AuthUser } = useAuth();
+
+  const navigate = useNavigate();
+
   const [getEmail, setEmail] = useState("");
   const [getPassword, setPassword] = useState("");
   const { login } = useAuth();
   const { classes } = useStyles();
-  const theme = useMantineTheme();
-  console.log("I am in Login Screen fix Point 1");
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={30}>

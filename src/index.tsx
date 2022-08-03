@@ -5,14 +5,17 @@ import App from "./app/App";
 import { MantineThemeOverride, MantineProvider } from "@mantine/core";
 import myTheme from "./assets/theme/project_theme";
 import { BrowserRouter } from "react-router-dom";
+import AuthProvider from "./context/authContext";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <BrowserRouter>
-    <MantineProvider theme={myTheme} withGlobalStyles withNormalizeCSS>
-      <App />
-    </MantineProvider>
+    <AuthProvider>
+      <MantineProvider theme={myTheme} withGlobalStyles withNormalizeCSS>
+        <App />
+      </MantineProvider>
+    </AuthProvider>
   </BrowserRouter>
 );
 

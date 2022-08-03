@@ -15,33 +15,9 @@ import {
 import LogoImage from "./logo_image";
 import { useAuth } from "../context/authContext";
 import { useEffect } from "react";
-const data1 = [
-  {
-    link: "datasets",
-    label: "Datasets",
-    active_label: "dashboard/datasets",
-    icon: Database,
-  },
-  {
-    link: "manageDeos",
-    label: "Manage DEOs",
-    active_label: "dashboard/manageDeos",
-    icon: Users,
-  },
-  {
-    link: "reports",
-    label: "Reports",
-    active_label: "dashboard/reports/home",
-    icon: ChartPie,
-  },
-  {
-    link: "setting",
-    label: "Other Settings",
-    active_label: "dashboard/setting",
-    icon: Settings,
-  },
-];
-
+import tabsData from "../temporaryData/tabsData";
+import getUserProfileData from "../utils/userProfileData";
+const data12 = tabsData;
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -72,8 +48,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
     link: {
       ...theme.fn.focusStyles(),
       display: "flex",
-      marginTop: "2px",
-      marginBottom: "2px",
+      height: 40,
+      marginTop: "5px",
+      marginBottom: "5px",
       alignItems: "center",
       textDecoration: "none",
       fontSize: theme.fontSizes.sm,
@@ -87,6 +64,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
       fontWeight: 500,
 
       "&:hover": {
+        height: 40,
+        marginTop: "5px",
+        marginBottom: "5px",
         backgroundColor:
           theme.colorScheme === "dark"
             ? theme.colors.dark[6]
@@ -115,6 +95,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
     linkActive: {
       "&, &:hover": {
+        height: 40,
+        marginTop: "5px",
+        marginBottom: "5px",
         backgroundColor:
           theme.colorScheme === "dark"
             ? theme.colors.dark[6]
@@ -132,21 +115,21 @@ const useStyles = createStyles((theme, _params, getRef) => {
   };
 });
 
-export function NavbarSimple() {
+export function NavbarSimple(props: any) {
   const PathLocation = window.location.pathname.slice(1);
-
+  //console.log(data1);
   localStorage.setItem("Url", PathLocation);
 
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("");
-
+  const [user, setUser] = useState(getUserProfileData);
   useEffect(() => {
     setActive(PathLocation);
   }, []);
 
   const theme = useMantineTheme();
   const { logout } = useAuth();
-  const links = data1.map((item) => (
+  const links = props.data1.map((item: any) => (
     <Link
       className={cx(classes.link, {
         [classes.linkActive]: item.active_label == PathLocation,
@@ -175,12 +158,22 @@ export function NavbarSimple() {
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <LogoImage />
-          <Code sx={{ fontWeight: 700,color:'#BC8D42',fontSize:14 }}>OPs v1.0</Code>
+          <Code
+            sx={{
+              fontWeight: 700,
+              color: "#BC8D42",
+              fontSize: 14,
+              marginTop: -5,
+            }}
+          >
+            OPs v1.0
+          </Code>
         </Group>
         {links}
       </Navbar.Section>
       <div className="text-sm text-offwhite">
-        You are loggedin as a <span className="text-Secondary">DEV</span>
+        You are loggedin as a{" "}
+        <span className="text-Secondary">{user?.userDetails.usr_role}</span>
       </div>
       <Navbar.Section className={classes.footer}>
         <Group position="center">
@@ -192,9 +185,9 @@ export function NavbarSimple() {
             <SwitchHorizontal className={classes.linkIcon} />
           </a>
           <Link
-            to="profile"
+            to="admin/profile"
             className={cx(classes.link, {
-              [classes.linkActive]: "dashboard/profile" === PathLocation,
+              [classes.linkActive]: "dashboard/admin/profile" === PathLocation,
             })}
           >
             <UserCircle className={classes.linkIcon} />

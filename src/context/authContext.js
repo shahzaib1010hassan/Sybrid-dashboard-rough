@@ -1,18 +1,18 @@
 import { createContext, useContext, useState } from "react";
 import profiledata from "../temporaryData/profiledata.json";
-
-import { useNavigate } from "react-router-dom";
-
+import { useHistory, useNavigate } from "react-router-dom";
+import { browserHistory, Navigate } from "react-router";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
+
   const [user, setUser] = useState({
     name: "",
     email: "",
   });
   const [AuthUser, setAuthUser] = useState(false);
-
+  const [userRole, setuserRole] = useState("");
   const login = (email, password) => {
     profiledata.map((user1) => {
       if (
@@ -23,35 +23,46 @@ const AuthProvider = ({ children }) => {
           name: user1.userDetails.usr_fname,
           email: user1.userDetails.usr_email,
         });
+        setuserRole(user1.userDetails.usr_role);
         setAuthUser(true);
 
         localStorage.setItem("accesstoken", user1.access_token);
-
-        navigate("/dashboard");
+        navigate("/dashboard/" + user1.userDetails.usr_role + "/datasets");
       }
     });
   };
 
   const loginByAcessToken = () => {
-    console.log("login by access token");
     setAuthUser(true);
   };
 
-  const logout = () => {
+  function logout() {
     //Clearing Content API User Details
-    console.log("I am in logout");
+
     setAuthUser(false);
     setUser({
       name: "",
       email: "",
     });
     //Removing Access Token
+    setuserRole("");
     localStorage.removeItem("accesstoken");
     //Navigate to Login Page
-    navigate("/login");
-  };
+    window.history.pushState({}, undefined, "/login");
+    window.location.reload();
+  }
 
-  const value = { user, setUser, AuthUser, loginByAcessToken, login, logout };
+  const value = {
+    user,
+    userRole,
+    setuserRole,
+    setUser,
+    AuthUser,
+    setAuthUser,
+    loginByAcessToken,
+    login,
+    logout,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
