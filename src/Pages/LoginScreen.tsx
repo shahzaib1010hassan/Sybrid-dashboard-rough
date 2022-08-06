@@ -1,13 +1,14 @@
 import { Paper, createStyles, Checkbox, Title, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
-import LogoImage from "../../../component/logo_image";
+import LogoImage from "../component/logo_image";
 
 import { useState } from "react";
-import { useAuth } from "../../../context/authContext";
+import { useAuth } from "../contextApi/authContext";
 import { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-import profiledata from "../../../temporaryData/profiledata.json";
+import profiledata from "../temporaryData/profiledata.json";
+import LogoImageBlack from "../component/logo_image_Black";
 
 const { innerWidth: width, innerHeight: height } = window;
 
@@ -24,7 +25,7 @@ export default function AuthenticationImage(props: any) {
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={30}>
         <div className="grid place-items-center">
-          <LogoImage />
+          <LogoImageBlack />
         </div>
         <Title
           order={2}

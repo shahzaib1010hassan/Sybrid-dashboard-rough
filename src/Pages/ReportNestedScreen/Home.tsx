@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAuth } from "../../../context/authContext";
+import { useAuth } from "../../contextApi/authContext";
 function Home() {
   const { user } = useAuth();
   return (

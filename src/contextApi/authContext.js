@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import profiledata from "../temporaryData/profiledata.json";
 import { useHistory, useNavigate } from "react-router-dom";
 import { browserHistory, Navigate } from "react-router";
+import UserRoleSelection from "../Pages/UserRoleSelection";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -12,7 +13,9 @@ const AuthProvider = ({ children }) => {
     email: "",
   });
   const [AuthUser, setAuthUser] = useState(false);
-  const [userRole, setuserRole] = useState("");
+  const [CurrentUserRole, setCurrentUserRole] = useState(
+    localStorage.getItem("userRole")
+  );
   const login = (email, password) => {
     profiledata.map((user1) => {
       if (
@@ -23,13 +26,42 @@ const AuthProvider = ({ children }) => {
           name: user1.userDetails.usr_fname,
           email: user1.userDetails.usr_email,
         });
-        setuserRole(user1.userDetails.usr_role);
+        //setCurrentUserRole(user1.userDetails.usr_role);
         setAuthUser(true);
 
         localStorage.setItem("accesstoken", user1.access_token);
-        navigate("/dashboard/" + user1.userDetails.usr_role + "/datasets");
+
+        navigate("datasets");
       }
     });
+  };
+
+  const AccessTokenChecking = () => {
+    var access_token_local = localStorage.getItem("accesstoken");
+    if (access_token_local != undefined) {
+      const userProfileData = profiledata.find(
+        (user1) => user1.access_token === access_token_local
+      );
+      if (userProfileData !== undefined) {
+        setUser({
+          name: userProfileData.userDetails.usr_fname,
+          email: userProfileData.userDetails.usr_email,
+        });
+        // setCurrentUserRole(userProfileData.userDetails.usr_role);
+        setAuthUser(true);
+
+        const PathLocation = window.location.pathname.slice(1);
+        if (PathLocation === "login") {
+          setAuthUser(true);
+
+          navigate("datasets");
+        }
+      } else {
+        setAuthUser(false);
+      }
+    } else {
+      setAuthUser(false);
+    }
   };
 
   const loginByAcessToken = () => {
@@ -45,8 +77,9 @@ const AuthProvider = ({ children }) => {
       email: "",
     });
     //Removing Access Token
-    setuserRole("");
+
     localStorage.removeItem("accesstoken");
+    localStorage.removeItem("userRole");
     //Navigate to Login Page
     window.history.pushState({}, undefined, "/login");
     window.location.reload();
@@ -54,8 +87,9 @@ const AuthProvider = ({ children }) => {
 
   const value = {
     user,
-    userRole,
-    setuserRole,
+    CurrentUserRole,
+    setCurrentUserRole,
+    AccessTokenChecking,
     setUser,
     AuthUser,
     setAuthUser,

@@ -8,7 +8,7 @@ import {
   SimpleGrid,
 } from "@mantine/core";
 import { useNavigate } from "react-router";
-import Pagenotfound404 from "../../../assets/SVG/pagenotfound404.svg";
+import Security from "../assets/icons/Security-amico.svg";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -18,6 +18,7 @@ const useStyles = createStyles((theme) => ({
 
   title: {
     fontWeight: 900,
+    marginTop: 200,
     fontSize: 34,
     color: "#BC8D42",
     marginBottom: theme.spacing.md,
@@ -49,7 +50,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function PageNotFound() {
+export default function AccessDenied() {
   const { classes } = useStyles();
   const navigate = useNavigate();
   return (
@@ -64,25 +65,23 @@ export default function PageNotFound() {
           className={classes.mobileImage}
         />
         <div>
-          <Title className={classes.title}>Something is not right...</Title>
+          <Title className={classes.title}>Access Denied</Title>
           <Text color="dimmed" size="lg">
-            Page you are trying to open does not exist. You may have mistyped
-            the address, or the page has been moved to another URL. If you think
-            this is an error contact support.
+            Sorry, you can't access this dashboard with your current role.
           </Text>
-          <Button
-            variant="outline"
-            size="md"
-            mt="xl"
-            className={classes.control}
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Get back to home page
-          </Button>
+          {/*<Button
+              variant="outline"
+              size="md"
+              mt="xl"
+              className={classes.control}
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Get back to home page
+            </Button>*/}
         </div>
-        <Image src={Pagenotfound404} className={classes.desktopImage} />
+        <Image src={Security} className={classes.desktopImage} />
       </SimpleGrid>
     </Container>
   );

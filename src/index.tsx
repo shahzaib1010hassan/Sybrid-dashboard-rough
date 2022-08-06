@@ -5,7 +5,7 @@ import App from "./app/App";
 import { MantineThemeOverride, MantineProvider } from "@mantine/core";
 import myTheme from "./assets/theme/project_theme";
 import { BrowserRouter } from "react-router-dom";
-import AuthProvider from "./context/authContext";
+import AuthProvider from "./contextApi/authContext";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

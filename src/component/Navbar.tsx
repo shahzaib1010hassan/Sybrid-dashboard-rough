@@ -13,11 +13,10 @@ import {
 } from "tabler-icons-react";
 //import { MantineLogo } from '../../shared/MantineLogo';
 import LogoImage from "./logo_image";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../contextApi/authContext";
 import { useEffect } from "react";
-import tabsData from "../temporaryData/tabsData";
 import getUserProfileData from "../utils/userProfileData";
-const data12 = tabsData;
+
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -148,6 +147,7 @@ export function NavbarSimple(props: any) {
   {
     console.log(window.innerHeight);
   }
+  let userRole = getUserProfileData()?.userDetails.usr_role;
   return (
     <Navbar
       height={window.innerHeight}
@@ -185,9 +185,10 @@ export function NavbarSimple(props: any) {
             <SwitchHorizontal className={classes.linkIcon} />
           </a>
           <Link
-            to="admin/profile"
+            to={"profile"}
             className={cx(classes.link, {
-              [classes.linkActive]: "dashboard/admin/profile" === PathLocation,
+              [classes.linkActive]:
+                "dashboard/" + userRole + "/profile" === PathLocation,
             })}
           >
             <UserCircle className={classes.linkIcon} />
