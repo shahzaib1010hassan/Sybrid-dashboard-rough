@@ -19,6 +19,8 @@ module.exports = {
       'bermuda': '#78dcca',
       'Primary': 'rgb(0, 121, 56)',
       'Secondary': '#BC8D42',
+      "Secondary-dark":"rgb(188, 141, 66,1)",
+      
       'offwhite':'#f5f5f5',
       'textColor':'#404e5a',
       'purple-400':'#AB47BC',

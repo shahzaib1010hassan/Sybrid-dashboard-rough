@@ -8,7 +8,7 @@
                 "FC",
                 "DES",
                 "DEO",
-                "CMM",
+                "CCM",
                 "AA"
             ],
             "usr_email": "hassanshahzaib81@gmail.com",
@@ -43,7 +43,7 @@
             "usr_fname": "Usman Siyal",
             "usr_role": [
                 "DEO",
-                "CMM",
+                "CCM",
                 "AA"
             ],
             "usr_email": "usmansiyal@gmail.com",
@@ -59,7 +59,9 @@
         "userDetails": {
             "usr_id": "4",
             "usr_fname": "Musab Khan",
-            "usr_role": ["FC"],
+            "usr_role": [
+                "FC"
+            ],
             "usr_email": "musabkhan@gmail.com",
             "usr_password": "Musab10",
             "usr_phonenumber": "+92 336 6651625",

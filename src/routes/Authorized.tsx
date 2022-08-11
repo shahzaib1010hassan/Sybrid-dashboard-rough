@@ -1,12 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import React from "react";
-
-import AuthenticationImage from "../Pages/LoginScreen";
-import UserRoleSlection from "../Pages/UserRoleSelection";
-
-import InnerContent from "../Pages/InnerContent";
-import getUserProfileData from "../utils/userProfileData";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import DatasetsScreen from "../Pages/DatasetsScreen";
 import ManageDeosScreen from "../Pages/ManageDeosScreen";
 import Home from "../Pages/ReportNestedScreen/Home";
@@ -14,40 +7,28 @@ import About from "../Pages/ReportNestedScreen/About";
 import SettingScreen from "../Pages/SettingScreen";
 import ReportScreen from "../Pages/ReportScreen";
 import UserInfoIcons from "../Pages/UserProfileDetails";
-import AdminInnerContent from "../Pages/AdminInnerContent";
 import DeveloperInnerContent from "../Pages/DeveloperInnerContent";
-import AccessDenied from "../Pages/AccessDenied";
 import { Link } from "react-router-dom";
 import { Settings, ChartPie, Users, Database } from "tabler-icons-react";
 import { useState } from "react";
-import { createStyles, Navbar, Group, Code, Menu } from "@mantine/core";
+import { createStyles, Navbar, Group, Code, Menu, Button } from "@mantine/core";
 import { useMantineTheme } from "@mantine/core";
 import { SwitchHorizontal, Logout, UserCircle } from "tabler-icons-react";
-//import { MantineLogo } from '../../shared/MantineLogo';
-
+import { useHover } from "@mantine/hooks";
 import { useAuth } from "../contextApi/authContext";
 import { useEffect } from "react";
 import LogoImage from "../component/logo_image";
 import UserRoleSelection from "../Pages/UserRoleSelection";
+import getUserProfileData from "../utils/userProfileData";
 const Authorized = () => {
-  //Getting User Role Here
-
   const { CurrentUserRole } = useAuth();
-  console.log(CurrentUserRole);
+  const userRolesNumber = getUserProfileData()?.userDetails.usr_role.length;
   return (
-    <>
-      {CurrentUserRole === "FC" && <Dashboard />}
-      {CurrentUserRole === "DES" && <Dashboard />}
-      {CurrentUserRole === "DEO" && <Dashboard />}
-      {CurrentUserRole === "CCM" && <Dashboard />}
-      {CurrentUserRole === "AA" && <Dashboard />}
-      {CurrentUserRole === null && <UserRoleSelection />}
-    </>
+    <>{CurrentUserRole === null ? <UserRoleSelection /> : <Dashboard />}</>
   );
 };
 
 const Dashboard = () => {
-  console.log("Here in Dashboard");
   return (
     <div className="flex flex-row bg-lightGrey">
       <div>{Sidebar()}</div>
@@ -57,8 +38,6 @@ const Dashboard = () => {
 };
 
 const AppRoutes = () => {
-  console.log("Here in App Routes");
-
   const { CurrentUserRole } = useAuth();
 
   return (
@@ -73,7 +52,6 @@ const AppRoutes = () => {
 };
 
 const SidebarTabs = () => {
-  console.log("Here in Sidebar");
   const { CurrentUserRole } = useAuth();
   return (
     <>
@@ -88,30 +66,64 @@ const SidebarTabs = () => {
 
 //Main function for Sidebar Switch Tab
 const SidebarSwitchTab = () => {
-  const { CurrentUserRole } = useAuth();
+  const { CurrentUserRole, setCurrentUserRole } = useAuth();
   const { classes, cx } = useStyles();
-  const [user, setUser] = useState(getUserProfileData);
+  const userProfileData = getUserProfileData();
+  const [user, setUser] = useState(userProfileData);
+  const [opened, setOpened] = useState(false);
+  const { hovered, ref } = useHover();
+  const navigate = useNavigate();
   return (
-    <div>
-      <Menu
-        trigger="hover"
-        openDelay={100}
-        closeDelay={400}
-        radius="md"
-        position={"top"}
-        offset={5}
-      >
-        <Menu.Target>
-          <SwitchHorizontal className={classes.linkIcon}></SwitchHorizontal>
-        </Menu.Target>
-        <Menu.Dropdown>
-          <Menu.Label>Switch Role</Menu.Label>
-          {user?.userDetails.usr_role.map((item: any) => (
-            <Menu.Item>{item}</Menu.Item>
-          ))}
-        </Menu.Dropdown>
-      </Menu>
-    </div>
+    <Menu
+      position="top"
+      trigger="hover"
+      openDelay={100}
+      closeDelay={250}
+      radius="md"
+      transition="rotate-right"
+      transitionDuration={200}
+      withArrow
+    >
+      <Menu.Target>
+        <div ref={ref}>
+          {hovered ? (
+            <Button
+              className={cx(classes.link, {
+                [classes.linkActive]: true,
+              })}
+            >
+              <SwitchHorizontal className={classes.linkIcon}></SwitchHorizontal>
+            </Button>
+          ) : (
+            <Button
+              className={cx(classes.link, {
+                [classes.linkActive]: false,
+              })}
+            >
+              <SwitchHorizontal className={classes.linkIcon}></SwitchHorizontal>
+            </Button>
+          )}
+        </div>
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Label className="text-Secondary font-semibold">
+          Switch Role
+        </Menu.Label>
+        {user?.userDetails.usr_role.map((item: any) => (
+          <Menu.Item
+            className="font-semibold"
+            disabled={item === CurrentUserRole}
+            onClick={() => {
+              setCurrentUserRole(item);
+              localStorage.setItem("userRole", item);
+              navigate("/");
+            }}
+          >
+            {item}
+          </Menu.Item>
+        ))}
+      </Menu.Dropdown>
+    </Menu>
   );
 };
 
@@ -366,18 +378,16 @@ const AA_Tabs = () => {
 const FCRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<InnerContent />}>
-        <Route path="/" element={<Navigate replace to="/datasets" />} />
-        <Route path="datasets" element={<DatasetsScreen />} />
-        <Route path="manageDeos" element={<ManageDeosScreen />} />
-        <Route path="setting" element={<SettingScreen />} />
-        <Route path="reports" element={<ReportScreen />}>
-          <Route path="reports" element={<Navigate replace to="home" />} />
-          <Route path="home" element={<Home />} />
-          <Route path="about" element={<About />} />
-        </Route>
-        <Route path="profile" element={<UserInfoIcons />} />
+      <Route path="/" element={<Navigate replace to="datasets" />} />
+      <Route path="datasets" element={<DatasetsScreen />} />
+      <Route path="manageDeos" element={<ManageDeosScreen />} />
+      <Route path="setting" element={<SettingScreen />} />
+      <Route path="reports" element={<ReportScreen />}>
+        <Route path="reports" element={<Navigate replace to="home" />} />
+        <Route path="home" element={<Home />} />
+        <Route path="about" element={<About />} />
       </Route>
+      <Route path="profile" element={<UserInfoIcons />} />
     </Routes>
   );
 };
@@ -387,17 +397,15 @@ const FCRoutes = () => {
 const DESRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<DeveloperInnerContent />}>
-        <Route path="/" element={<DeveloperInnerContent />} />
-        <Route path="datasets" element={<DatasetsScreen />} />
-        <Route path="setting" element={<SettingScreen />} />
-        <Route path="reports" element={<ReportScreen />}>
-          <Route path="reports" element={<Navigate replace to="home" />} />
-          <Route path="home" element={<Home />} />
-          <Route path="about" element={<About />} />
-        </Route>
-        <Route path="profile" element={<UserInfoIcons />} />
+      <Route path="/" element={<Navigate replace to="datasets" />} />
+      <Route path="datasets" element={<DatasetsScreen />} />
+      <Route path="setting" element={<SettingScreen />} />
+      <Route path="reports" element={<ReportScreen />}>
+        <Route path="reports" element={<Navigate replace to="home" />} />
+        <Route path="home" element={<Home />} />
+        <Route path="about" element={<About />} />
       </Route>
+      <Route path="profile" element={<UserInfoIcons />} />
     </Routes>
   );
 };
@@ -556,10 +564,11 @@ const Sidebar = () => {
 
   const theme = useMantineTheme();
   const { logout } = useAuth();
-
+  const userRolesNumber = getUserProfileData()?.userDetails.usr_role.length;
   return (
     <Navbar
-      height={window.innerHeight}
+      // height={window.innerHeight}
+      className="h-screen overflow-hidden"
       width={{ sm: 300 }}
       p="md"
       sx={{ backgroundColor: theme.colors.lightDark }}
@@ -586,7 +595,7 @@ const Sidebar = () => {
       </div>
       <Navbar.Section className={classes.footer}>
         <Group position="center">
-          <SidebarSwitchTab />
+          {userRolesNumber !== 1 && <SidebarSwitchTab />}
           <Link
             to={"profile"}
             className={cx(classes.link, {

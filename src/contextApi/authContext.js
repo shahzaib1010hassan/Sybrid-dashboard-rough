@@ -1,8 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import profiledata from "../temporaryData/profiledata.json";
-import { useHistory, useNavigate } from "react-router-dom";
-import { browserHistory, Navigate } from "react-router";
-import UserRoleSelection from "../Pages/UserRoleSelection";
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -13,9 +11,8 @@ const AuthProvider = ({ children }) => {
     email: "",
   });
   const [AuthUser, setAuthUser] = useState(false);
-  const [CurrentUserRole, setCurrentUserRole] = useState(
-    localStorage.getItem("userRole")
-  );
+  const getUserRole = localStorage.getItem("userRole");
+  const [CurrentUserRole, setCurrentUserRole] = useState(getUserRole);
   const login = (email, password) => {
     profiledata.map((user1) => {
       if (
@@ -26,12 +23,18 @@ const AuthProvider = ({ children }) => {
           name: user1.userDetails.usr_fname,
           email: user1.userDetails.usr_email,
         });
-        //setCurrentUserRole(user1.userDetails.usr_role);
+        const Role = user1.userDetails.usr_role.at(0);
+        const total_Roles_Number = user1.userDetails.usr_role.length;
+        if (total_Roles_Number == 1) {
+          setCurrentUserRole(Role);
+          localStorage.setItem("userRole", Role !== undefined ? Role : null);
+        }
+
         setAuthUser(true);
 
         localStorage.setItem("accesstoken", user1.access_token);
 
-        navigate("datasets");
+        navigate("");
       }
     });
   };
@@ -53,8 +56,7 @@ const AuthProvider = ({ children }) => {
         const PathLocation = window.location.pathname.slice(1);
         if (PathLocation === "login") {
           setAuthUser(true);
-
-          navigate("datasets");
+          navigate("/");
         }
       } else {
         setAuthUser(false);
@@ -62,10 +64,6 @@ const AuthProvider = ({ children }) => {
     } else {
       setAuthUser(false);
     }
-  };
-
-  const loginByAcessToken = () => {
-    setAuthUser(true);
   };
 
   function logout() {
@@ -81,7 +79,7 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("accesstoken");
     localStorage.removeItem("userRole");
     //Navigate to Login Page
-    window.history.pushState({}, undefined, "/login");
+    window.history.pushState({}, undefined, "/");
     window.location.reload();
   }
 
@@ -93,7 +91,6 @@ const AuthProvider = ({ children }) => {
     setUser,
     AuthUser,
     setAuthUser,
-    loginByAcessToken,
     login,
     logout,
   };

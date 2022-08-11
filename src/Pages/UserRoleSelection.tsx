@@ -1,5 +1,4 @@
 import { createStyles, Header, Container, Group, Burger } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import LogoImageBlack from "../component/logo_image_Black";
 import getUserProfileData from "../utils/userProfileData";
 import { useState } from "react";
@@ -56,7 +55,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function UserRoleSelection() {
   const { classes } = useStyles();
-  const [opened, { toggle }] = useDisclosure(false);
+
   const [user, setUser] = useState(getUserProfileData);
   const { setCurrentUserRole } = useAuth();
   const navigate = useNavigate();
@@ -66,12 +65,7 @@ export default function UserRoleSelection() {
       <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120} mt={10}>
         <Container className={classes.inner} fluid>
           <Group>
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              className={classes.burger}
-              size="sm"
-            />
+            <Burger opened={true} className={classes.burger} size="sm" />
             <LogoImageBlack />
           </Group>
 
@@ -94,7 +88,7 @@ export default function UserRoleSelection() {
             onClick={() => {
               setCurrentUserRole(item);
               localStorage.setItem("userRole", item);
-              navigate("datasets");
+              navigate("/");
             }}
             className="block p-6 w-60 mx-5 bg-white rounded-lg border border-gray-200 shadow-md  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 drop-shadow-xs hover:drop-shadow-2xl"
           >

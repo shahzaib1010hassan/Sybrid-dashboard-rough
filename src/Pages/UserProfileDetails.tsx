@@ -1,5 +1,5 @@
 import { createStyles } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import getUserProfileData from "../utils/userProfileData";
 const useStyles = createStyles((theme) => ({
   icon: {
